@@ -1,0 +1,68 @@
+CREATE DEFINER=`dldp_dev`@`%` PROCEDURE `synchronize_property`()
+BEGIN
+	DECLARE t_zcfbid VARCHAR(64); 
+	DECLARE t_dxid VARCHAR(64);
+	DECLARE t_bbid VARCHAR(64);
+	DECLARE s INT DEFAULT 0;
+	DECLARE f INT DEFAULT 0;
+	DECLARE t INT DEFAULT 0;	
+	DECLARE b INT DEFAULT 0;	
+	DECLARE table_name VARCHAR(255);
+	DECLARE table_id VARCHAR(255);
+	DECLARE t_smdxid VARCHAR(255);
+	
+	-- 查询所有的表并循环  1001 为默认组织id ，ZC_TEST 模式名 ，admin 默认创建人
+	-- 定义游标，并将系统扫描的表结果集赋值到游标中
+	DECLARE report CURSOR FOR SELECT dxbm AS table_name,dxid AS table_id,smdxid FROM	d_smjg_zb WHERE dxid = (SELECT dxid FROM (SELECT dxid,UPPER(ljsjkm) AS ljsjkm,xgsj FROM b_sjkljb) a WHERE ljsjkm = 'ZC_TEST' ORDER BY xgsj DESC LIMIT 1);
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET s=1;
+	
+	-- 查询模式dxid
+	SELECT dxid INTO t_dxid FROM (SELECT dxid,UPPER(ljsjkm) AS ljsjkm,xgsj FROM b_sjkljb) a WHERE ljsjkm = 'ZC_TEST' ORDER BY xgsj DESC LIMIT 1;
+	
+	-- 打开游标
+	OPEN report;
+	FETCH report INTO table_name,table_id,t_smdxid;
+		WHILE s<>1 DO
+			-- 判断表是否在
+			SELECT COUNT(1) INTO t from sg_meta_table WHERE TABLE_NAME_ENG = table_name;
+			-- 判断表是否发布
+			SELECT COUNT(1) INTO b from d_zcfbb WHERE dxid = t_smdxid;
+			IF t > 0 and b = 0 THEN
+				-- 判断字段是否一致
+				SELECT COUNT( 1 ) INTO f FROM(SELECT	zdmz FROM	( SELECT PROPERTY_NAME_ENG AS zdmz FROM `sg_meta_property` WHERE TABLE_NAME_ENG = table_name UNION ALL SELECT zdmz FROM d_sjkbjg_xx WHERE smdxid = t_smdxid ) a	GROUP BY zdmz HAVING count( 1 )< 2 ) a;
+				
+				IF f = 0 THEN
+					-- 生成zcfbid
+					SET t_zcfbid = (SELECT MD5(UUID()) AS uuid);
+					
+					-- 生成bbid
+					SELECT CONCAT(REPLACE(curdate(),'-',''),'000000000000000000000001') INTO t_bbid;
+					INSERT INTO z_b_bbxxb_temp(flid,dxid,bbid) VALUES(t_zcfbid,'a9668866c8ba4b6c8e39224233a5b221',t_bbid);
+					
+					-- 插入资产发布表
+					INSERT INTO z_d_zcfbb_temp(zcfbid,dxid,dxflid,bmid,yhid,bbid,zcmc,zcsm,zcbm,sign) SELECT t_zcfbid AS zcfbid,t_smdxid AS dxid,'0' AS dxflid,'1001' AS bmid,'admin' AS yhid,t_bbid AS bbid,TABLE_NAME_CHN AS zcmc,TABLE_NAME_CHN AS zcsm,TABLE_NAME_ENG AS zcbm,1 AS sign FROM sg_meta_table WHERE TABLE_NAME_ENG = table_name;
+					
+					-- 资产分类关系
+					INSERT INTO z_b_zcfl_gx_temp(jdid, fjid) SELECT t_zcfbid AS jdid,OBJECT_CODE AS fjid FROM sg_meta_table WHERE TABLE_NAME_ENG = table_name;
+					
+					-- 插入对象目录表  75ed0a734a3842b39d8e0e6726e4daf3 为目录id，需要修改
+					INSERT INTO z_b_dxmlb_temp(mlid,dxid,dxmc,dxbm,flid,dxflid,cjrid) SELECT '75ed0a734a3842b39d8e0e6726e4daf3' AS mlid,t_zcfbid AS dxid,TABLE_NAME_CHN AS dxmc,TABLE_NAME_ENG AS dxbm,'9' AS flid,'0' AS dxflid,'admin' AS cjrid FROM sg_meta_table WHERE TABLE_NAME_ENG = table_name;
+					
+					-- 插入资产对象表
+					INSERT INTO z_d_zcfb_dxxx_temp SELECT t_zcfbid AS zcfbid,a.smdxid,a.tjid,a.smdxmc,a.dxid,a.ljid,a.tjbbid,a.ljbbid,a.smbbh,a.cjry,a.cjsj,a.xgryid,a.xgsj,a.dxmc,a.dxbm,a.dxflid,a.jglx,a.mmid,a.smpch,a.yxbz,bs.ljsjkm AS scheam FROM v_zcfb_yl_zc a LEFT JOIN b_sjkljb bs ON a.dxid = bs.dxid WHERE a.smdxid = t_smdxid;
+					
+					-- 插入资产连接表
+					INSERT INTO z_d_zcfb_ljxx_temp SELECT t_zcfbid AS zcfbid,dxid,ljid,zflid,jqbz,ljyh,ljmm,ljdz,ljdk,ljsjkm,aqrzlx,rzlxwjm,rzlxwjlj,ljurl,BBID,xgsj,xgryid,yxbz FROM v_zcfb_yl_lj  WHERE dxid = table_id;
+					
+					-- 插入结构表
+					INSERT INTO z_d_zcfb_jgxx_temp SELECT	t_zcfbid AS zcfbid,a.smpch,a.smdxid,a.zdmz,a.zdzwm,b.PROPERTY_NAME_CHN ywmc,a.zdlx,a.zdcd,a.zdjd,a.sfzj,a.sfwk,a.sffq,a.zdmrz,a.smbbh,a.zs FROM(SELECT * FROM d_sjkbjg_xx WHERE smdxid = t_smdxid) a LEFT JOIN (SELECT * FROM sg_meta_property WHERE TABLE_NAME_ENG = table_name)b ON a.zdmz = b.PROPERTY_NAME_ENG;
+			
+				END IF;
+			END IF;
+			
+			FETCH report INTO table_name,table_id,t_smdxid;
+		END WHILE;
+	-- 关闭游标
+	CLOSE report;
+
+END

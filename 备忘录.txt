@@ -1,0 +1,16 @@
+-Dfile.encoding=UTF-8
+
+EasyCodeMybatisCodeHelperPro的token：5b842e93b33e18cecc549b9df82686cb
+
+liujx@ihyht.com  ljx246866..6      liujx  13540429916@sd`
+
+wifi 账号  SCWD scwd20220711   ChinaNet-93h5  密码  nyyc3qwp
+
+
+
+mvn clean install -Dmaven.test.skip=true -s E:\companyProject\hyht\settings.xml
+
+S3TC-CWDQ-7TRU-LCGE
+w3590810k2.qicp.vip
+
+

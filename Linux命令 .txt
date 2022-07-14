@@ -1,0 +1,48 @@
+mysql ：root Root@123
+linux：ljx 666
+redis：
+rabbitmq：root root
+
+清空文件数据：echo "" > （catalina.out）
+拷贝到另一个服务器：scp -r （mecp.dubbo.war root@172.16.9.171:/home/apache-tomcat-dubbo/code/）
+删除：rm -rf （mecp.dubbo.war.back20200327）
+拷贝：cp （mecp.dubbo.war mecp.dubbo.war.back20200408）
+发布：cp （/home/apache-tomcat-dubbo/code/mecp.dubbo.war /home/apache-tomcat-dubbo/webapps/）
+查看进程： ps -ef|grep java
+关闭进程： kill -9 进程号   pkill -９ xxxx
+启动tomcat： cd /home/apache-tomcat-dubbo/bin/         ./startup.sh 
+打印实时日志：tail -f catalina.out 
+打印最后2000行日志：tail -n 2000 catalina.out 
+
+后台启动命令：xxx &  nohup xxx &
+查看磁盘使用情况：df -h
+查看内存：top  free  cat /proc/meminfo
+
+运行JAR包的命令：
+1、java -jar xxxxx.jar  // 当前ssh窗口被锁定，可按CTRL + C打断程序运行，或直接关闭窗口，程序退出
+2、java -jar xxxxx.jar &   //当前ssh窗口不被锁定，但是当窗口关闭时，程序中止运行。
+3、nohup java -jar xxxxxx.jar &  //意思是不挂断运行命令,当账户退出或终端关闭时,程序仍然运行
+4、nohup java -jar xxxxxx.jar >>xxxxxx.log &  //指定输出日志文件，意思是不挂断运行命令,当账户退出或终端关闭时,程序仍然运行
+查看jar包进程：
+ps -ef|grep xxx.jar
+ps aux|grep xxx.jar
+
+开启/关闭防火墙：systemctl start/stop firewalld
+查看防火墙允许的端口：firewall-cmd --list-ports
+
+查看所有的端口：netstat -lntp
+查看指定的端口：netstat -antp | grep xxx
+
+发送get请求： wget http://127.0.0.1:8090     curl -4 -v http://127.0.0.1:8090
+发送post请求：curl -H "Content-type: application/json" -X POST -d '{"xx":"xx","xx":"xx"}' http://127.0.0.1:8080/xx/xx
+
+启动mysql：./mysql/bin/mysqld --defaults-file=/xxx/xxx/mysql5.7/etc/my.cnf --user=root &     service mysqld start
+备份数据库：mysqldump -hxxx -Pxxx -uroot -pxxx --all-databases > /xxx/xxx/xxx.sql
+关闭mysql服务：service mysqld stop
+迁移数据库：1、新建文件夹 2、授权：chown -vR mysql:mysql /xxx/mysql5.7/data/  chmod 700 /xxx/mysql5.7/data/ 3、修改配置文件：vim etc/my.cnf -->datadir
+
+查询linux版本：cat /etc/redhat-release
+
+
+
+
