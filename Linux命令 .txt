@@ -1,7 +1,9 @@
-mysql ：root Root@123
-linux：ljx 666
-redis：
-rabbitmq：root root
+本机：
+	mysql ：root Root@123
+	linux：ljx 666
+	redis：redis666
+		启动：/usr/local/bin/redis-server conf/redis.conf
+	rabbitmq：root root
 
 清空文件数据：echo "" > （catalina.out）
 拷贝到另一个服务器：scp -r （mecp.dubbo.war root@172.16.9.171:/home/apache-tomcat-dubbo/code/）
