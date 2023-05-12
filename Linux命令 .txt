@@ -46,5 +46,8 @@ ps aux|grep xxx.jar
 查询linux版本：cat /etc/redhat-release
 
 
+查看jvm内存使用：jhsdb jmap --heap --pid 
+
+
 
 

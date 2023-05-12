@@ -1,0 +1,3 @@
+查询JVM内存大小：jstat -gccapacity [pid]   (NGCMN：新生代最小容量NGCMX：新生代最大容量NGC：当前新生代容量S0C：第一个幸存区大小S1C：第二个幸存区的大小EC：伊甸园区的大小OGCMN：老年代最小容量OGCMX：老年代最大容量OGC：当前老年代大小OC:当前老年代大小MCMN:最小元数据容量MCMX：最大元数据容量MC：当前元数据空间大小CCSMN：最小压缩类空间大小CCSMX：最大压缩类空间大小CCSC：当前压缩类空间大小YGC：年轻代gc次数FGC：老年代GC次数)
+
+查看jvm内存使用：jhsdb jmap --heap --pid [pid]
