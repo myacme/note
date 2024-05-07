@@ -1,0 +1,25 @@
+CREATE DEFINER = `dldp_dev` @`%` PROCEDURE `P_my` () BEGIN
+	DECLARE	done INT DEFAULT 0;
+	DECLARE	table_name1 VARCHAR ( 255 );
+	DECLARE	cur CURSOR FOR 
+		SELECT
+			table_name 
+		FROM
+			information_schema.`TABLES` 
+		WHERE
+			TABLE_NAME LIKE '%history_version%' 
+			AND table_schema = 'dldp_pwy_v2';
+	DECLARE	CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+	OPEN cur;
+	WHILE done <> 1 DO
+			FETCH cur INTO table_name1;
+		
+		SET @SQL = CONCAT( 'INSERT into loop_table VALUES("', table_name1, '")' );
+		PREPARE stmt FROM @SQL;
+		EXECUTE stmt;
+		DEALLOCATE PREPARE stmt;
+		
+	END WHILE;
+	CLOSE cur;
+
+END
