@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)https://shrink.fun/note/kafka/#/?id=_2%e5%86%99%e9%85%8d%e7%bd%ae -->
+<html lang="en"><script id="allow-copy_script">(function agent() {
+    let unlock = false
+    document.addEventListener('allow_copy', (event) => {
+      unlock = event.detail.unlock
+    })
+
+    const copyEvents = [
+      'copy',
+      'cut',
+      'contextmenu',
+      'selectstart',
+      'mousedown',
+      'mouseup',
+      'mousemove',
+      'keydown',
+      'keypress',
+      'keyup',
+    ]
+    const rejectOtherHandlers = (e) => {
+      if (unlock) {
+        e.stopPropagation()
+        if (e.stopImmediatePropagation) e.stopImmediatePropagation()
+      }
+    }
+    copyEvents.forEach((evt) => {
+      document.documentElement.addEventListener(evt, rejectOtherHandlers, {
+        capture: true,
+      })
+    })
+  })()</script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Kafka</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="./Kafka_files/dark.css">
+</head>
+<body data-page="README.md" class="ready sticky">
+  <nav class="app-nav no-badge"><ul><li><a href="https://shrink.fun/about-me.html" target="_blank" rel="noopener" title="关于作者">关于作者</a></li><li>作者笔记<ul><li><a href="https://shrink.fun/note/spring-security" target="_blank" rel="noopener" title="SpringSecurity">SpringSecurity</a></li><li><a href="https://shrink.fun/note/oauth2.0-authorization-resource-service" target="_blank" rel="noopener" title="OAuth2.0授权/资源服务">OAuth2.0授权/资源服务</a></li><li><a href="https://shrink.fun/note/JWT" target="_blank" rel="noopener" title="JWT">JWT</a></li><li><a href="https://shrink.fun/note/quartz" target="_blank" rel="noopener" title="Quartz">Quartz</a></li><li><a href="https://shrink.fun/note/git" target="_blank" rel="noopener" title="Git">Git</a></li><li><a href="https://shrink.fun/note/docker" target="_blank" rel="noopener" title="Docker">Docker</a></li><li><a href="https://shrink.fun/note/elasticsearch" target="_blank" rel="noopener" title="ElasticSearch">ElasticSearch</a></li><li><a href="https://shrink.fun/note/mybatis-plus" target="_blank" rel="noopener" title="MyBatisPlus">MyBatisPlus</a></li><li><a href="https://shrink.fun/note/pay/wechat-pay" target="_blank" rel="noopener" title="WechatPay">WechatPay</a></li><li><a href="https://shrink.fun/note/pay/ali-pay" target="_blank" rel="noopener" title="AliPay">AliPay</a></li><li><a href="https://shrink.fun/note/easy-poi" target="_blank" rel="noopener" title="EasyPoi">EasyPoi</a></li><li><a href="https://shrink.fun/note/kafka" target="_blank" rel="noopener" title="Kafka">Kafka</a></li><li><a href="https://shrink.fun/note/zoo-keeper" target="_blank" rel="noopener" title="ZooKeeper">ZooKeeper</a></li><li><a href="https://shrink.fun/note/kubernetes" target="_blank" rel="noopener" title="Kubernetes">Kubernetes</a></li><li>持续更新中...</li></ul></li><li>在线技术文档<ul><li><a href="https://docs.oracle.com/javase/8/docs/api/index.html" target="_blank" rel="noopener" title="Java 8官方文档">Java 8官方文档</a></li><li><a href="https://spring.io/projects/spring-framework" target="_blank" rel="noopener" title="Spring官方文档">Spring官方文档</a></li><li><a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener" title="SpringBoot官方文档">SpringBoot官方文档</a></li><li><a href="https://spring.io/projects/spring-cloud" target="_blank" rel="noopener" title="SpringCloud官方文档">SpringCloud官方文档</a></li><li><a href="https://mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener" title="MyBatis中文文档">MyBatis中文文档</a></li><li><a href="https://www.rabbitmq.com/documentation.html" target="_blank" rel="noopener" title="RabbitMQ官方文档">RabbitMQ官方文档</a></li><li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html" target="_blank" rel="noopener" title="ElasticSearch官方文档">ElasticSearch官方文档</a></li></ul></li></ul></nav><main><button class="sidebar-toggle" aria-label="Menu"><div class="sidebar-toggle-button"><span></span><span></span><span></span></div></button><aside class="sidebar"><div class="sidebar-nav"><ul><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e9%9b%86%e7%be%a4%e6%9e%b6%e6%9e%84" title="集群架构">集群架构</a></li><ul><li><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e6%90%ad%e5%bb%ba%e8%bf%87%e7%a8%8b" title="搭建过程">搭建过程</a></li><li><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e7%bb%86%e8%8a%82" title="细节">细节</a></li></ul><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e7%94%9f%e4%ba%a7%e8%80%85%e5%8f%91%e9%80%81%e6%b6%88%e6%81%af%e7%9a%84%e8%bf%87%e7%a8%8b" title="生产者发送消息的过程">生产者发送消息的过程</a></li><ul><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e7%94%9f%e4%ba%a7%e8%80%85%e9%80%89%e6%8b%a9%e5%88%86%e5%8c%ba%e7%9a%84%e8%bf%87%e7%a8%8b" title="生产者选择分区的过程">生产者选择分区的过程</a></li></ul><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e6%b6%88%e8%b4%b9%e8%80%85%e6%8e%a5%e6%94%b6%e6%b6%88%e6%81%af%e7%9a%84%e8%bf%87%e7%a8%8b" title="消费者接收消息的过程">消费者接收消息的过程</a></li><li><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e6%b6%88%e8%b4%b9%e8%80%85%e7%bb%84" title="消费者组">消费者组</a></li><ul><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e6%b6%88%e8%b4%b9%e8%80%85%e7%bb%84%e5%88%9d%e5%a7%8b%e5%8c%96%e8%bf%87%e7%a8%8b" title="消费者组初始化过程">消费者组初始化过程</a></li><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e6%b6%88%e8%b4%b9%e8%80%85%e7%bb%84%e6%8e%a5%e6%94%b6%e6%b6%88%e6%81%af%e7%9a%84%e6%a8%a1%e5%9e%8b" title="消费者组接收消息的模型">消费者组接收消息的模型</a></li></ul><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=offset%e5%ad%98%e5%82%a8%e4%bd%8d%e7%bd%ae" title="offset存储位置">offset存储位置</a></li><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e7%94%9f%e4%ba%a7%e8%80%85%e5%8f%91%e9%80%81%e4%ba%8b%e5%8a%a1%e6%b6%88%e6%81%af%e7%9a%84%e6%b5%81%e7%a8%8b" title="生产者发送事务消息的流程">生产者发送事务消息的流程</a></li><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=springboot%e9%9b%86%e6%88%90" title="SpringBoot集成">SpringBoot集成</a></li><ul><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=_1%e5%bc%95%e4%be%9d%e8%b5%96" title="1.引依赖">1.引依赖</a></li><li class="active"><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=_2%e5%86%99%e9%85%8d%e7%bd%ae" title="2.写配置">2.写配置</a></li><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=_3%e4%bd%bf%e7%94%a8" title="3.使用">3.使用</a></li><ul><li class=""><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=_1%e5%88%9b%e5%bb%ba%e8%af%9d%e9%a2%98" title="1.创建话题">1.创建话题</a></li><li><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=_2%e7%94%9f%e4%ba%a7%e8%80%85" title="2.生产者">2.生产者</a></li><ul><li><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e6%b2%a1%e6%9c%89%e4%ba%8b%e5%8a%a1" title="没有事务">没有事务</a></li><li><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e6%9c%89%e4%ba%8b%e5%8a%a1" title="有事务">有事务</a></li></ul><li><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=_3%e6%b6%88%e8%b4%b9%e8%80%85" title="3.消费者">3.消费者</a></li></ul></ul><li><a class="section-link" href="https://shrink.fun/note/kafka/#/?id=%e9%80%9a%e8%bf%87eagle%e5%8f%af%e8%a7%86%e5%8c%96kafka" title="通过eagle可视化Kafka">通过eagle可视化Kafka</a></li></ul></div></aside><section class="content"><article class="markdown-section" id="main"><blockquote>
+<p>Kafka默认7天会清除部分旧数据 </p></blockquote>
+<blockquote>
+<p>生产者：默认保证消息不丢失（生产失败会重试）、添加事务保证消息不重复<br>
+消费者：ACK机制保证消息不丢失、添加幂等性保证消息不重复</p></blockquote>
+<h2 id="集群架构"><a href="https://shrink.fun/note/kafka/#/?id=%e9%9b%86%e7%be%a4%e6%9e%b6%e6%9e%84" data-id="集群架构" class="anchor"><span>集群架构</span></a></h2><blockquote>
+<p>Kafka集群架构和ES一样</p></blockquote>
+<p><img src="./Kafka_files/Kafka集群架构.png" data-origin="kafka.assets\Kafka集群架构.png" alt=""></p><h3 id="搭建过程"><a href="https://shrink.fun/note/kafka/#/?id=%e6%90%ad%e5%bb%ba%e8%bf%87%e7%a8%8b" data-id="搭建过程" class="anchor"><span></span></a><a href="https://www.bilibili.com/video/BV1vr4y1677k?p=6" target="_blank" rel="noopener">搭建过程</a></h3><h3 id="细节"><a href="https://shrink.fun/note/kafka/#/?id=%e7%bb%86%e8%8a%82" data-id="细节" class="anchor"><span></span></a><a href="https://www.bilibili.com/video/BV1vr4y1677k?p=22" target="_blank" rel="noopener">细节</a></h3><h2 id="生产者发送消息的过程"><a href="https://shrink.fun/note/kafka/#/?id=%e7%94%9f%e4%ba%a7%e8%80%85%e5%8f%91%e9%80%81%e6%b6%88%e6%81%af%e7%9a%84%e8%bf%87%e7%a8%8b" data-id="生产者发送消息的过程" class="anchor"><span>生产者发送消息的过程</span></a></h2><p><img src="./Kafka_files/生产者发送消息的过程.png" data-origin="kafka.assets\生产者发送消息的过程.png" alt=""></p><h3 id="生产者选择分区的过程"><a href="https://shrink.fun/note/kafka/#/?id=%e7%94%9f%e4%ba%a7%e8%80%85%e9%80%89%e6%8b%a9%e5%88%86%e5%8c%ba%e7%9a%84%e8%bf%87%e7%a8%8b" data-id="生产者选择分区的过程" class="anchor"><span>生产者选择分区的过程</span></a></h3><p>优先级（降序）：</p><ol><li>自定义分区器</li><li>默认的分区器</li><li>指定的分区<ol><li>hash（消息的key）%分区总数</li><li>随机选择一个和上一个不一样的分区</li></ol></li></ol><h2 id="消费者接收消息的过程"><a href="https://shrink.fun/note/kafka/#/?id=%e6%b6%88%e8%b4%b9%e8%80%85%e6%8e%a5%e6%94%b6%e6%b6%88%e6%81%af%e7%9a%84%e8%bf%87%e7%a8%8b" data-id="消费者接收消息的过程" class="anchor"><span>消费者接收消息的过程</span></a></h2><p><img src="./Kafka_files/消费者接收消息的过程.png" data-origin="kafka.assets\消费者接收消息的过程.png" alt=""></p><h2 id="消费者组"><a href="https://shrink.fun/note/kafka/#/?id=%e6%b6%88%e8%b4%b9%e8%80%85%e7%bb%84" data-id="消费者组" class="anchor"><span>消费者组</span></a></h2><h3 id="消费者组初始化过程"><a href="https://shrink.fun/note/kafka/#/?id=%e6%b6%88%e8%b4%b9%e8%80%85%e7%bb%84%e5%88%9d%e5%a7%8b%e5%8c%96%e8%bf%87%e7%a8%8b" data-id="消费者组初始化过程" class="anchor"><span>消费者组初始化过程</span></a></h3><p><img src="./Kafka_files/消费者组初始化过程.png" data-origin="kafka.assets\消费者组初始化过程.png" alt=""></p><h3 id="消费者组接收消息的模型"><a href="https://shrink.fun/note/kafka/#/?id=%e6%b6%88%e8%b4%b9%e8%80%85%e7%bb%84%e6%8e%a5%e6%94%b6%e6%b6%88%e6%81%af%e7%9a%84%e6%a8%a1%e5%9e%8b" data-id="消费者组接收消息的模型" class="anchor"><span>消费者组接收消息的模型</span></a></h3><p><img src="./Kafka_files/消费者组接收消息的模型.png" data-origin="kafka.assets\消费者组接收消息的模型.png" alt=""></p><h2 id="offset存储位置"><a href="https://shrink.fun/note/kafka/#/?id=offset%e5%ad%98%e5%82%a8%e4%bd%8d%e7%bd%ae" data-id="offset存储位置" class="anchor"><span>offset存储位置</span></a></h2><p> Kafka0.9版本之前，consumer默认将offset保存在Zookeeper中。从0.9版本开始，consumer默认将offset保存在Kafka一个内置的topic中，该topic为__consumer_offsets。</p><p>consumer_offsets里面采用key和value的方式存储数据，key是topic+分区号+group.id，value就是当前offset的值。 </p><h2 id="生产者发送事务消息的流程"><a href="https://shrink.fun/note/kafka/#/?id=%e7%94%9f%e4%ba%a7%e8%80%85%e5%8f%91%e9%80%81%e4%ba%8b%e5%8a%a1%e6%b6%88%e6%81%af%e7%9a%84%e6%b5%81%e7%a8%8b" data-id="生产者发送事务消息的流程" class="anchor"><span>生产者发送事务消息的流程</span></a></h2><p><img src="./Kafka_files/生产者发送事务消息的流程.png" data-origin="kafka.assets\生产者发送事务消息的流程.png" alt=""></p><h2 id="springboot集成"><a href="https://shrink.fun/note/kafka/#/?id=springboot%e9%9b%86%e6%88%90" data-id="springboot集成" class="anchor"><span>SpringBoot集成</span></a></h2><h3 id="_1引依赖"><a href="https://shrink.fun/note/kafka/#/?id=_1%e5%bc%95%e4%be%9d%e8%b5%96" data-id="_1引依赖" class="anchor"><span>1.引依赖</span></a></h3><pre v-pre="" data-lang="xml"><code class="lang-xml"><span class="token comment">&lt;!--kafka--&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>org.springframework.kafka<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>spring-kafka<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span></code></pre><h3 id="_2写配置"><a href="https://shrink.fun/note/kafka/#/?id=_2%e5%86%99%e9%85%8d%e7%bd%ae" data-id="_2写配置" class="anchor"><span>2.写配置</span></a></h3><pre v-pre="" data-lang="yaml"><code class="lang-yaml">spring:
+  kafka:
+    #集群url
+    bootstrap-servers: kafka.test.za.net:9092
+    producer:
+      #value的序列化器
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer #需要jackson,web一般会引入,没有的话手动引入一下.
+      #事务id前缀(开启生产者提交时事务机制(使用KafkaTemplate发送消息时必须是事务形式,同步发送不生效,异步发送才生效.))
+      transaction-id-prefix: Shrink-
+    consumer:
+      #value的反序列化器
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer #需要jackson,web一般会引入,没有的话手动引入一下.
+      properties:
+        spring:
+          json:
+            trusted:
+              #允许反序列化的类所处的包
+              packages: com.example.kafka.entity
+      #消费者所属组的组id
+      group-id: 8989
+      #关闭自动提交(和手动提交模式搭配使用)
+      enable-auto-commit: false
+      #如果当前group-id没有对应的offset,则应该把初始offset置为这个值.
+      #latest(默认):offset为最后的值
+      #earliest:offset为第一个值(从头开始)
+      #也可以在具体话题的分区里指定具体的offset,会覆盖这个设置.
+      auto-offset-reset: latest
+    listener:
+      #手动提交模式(和关闭自动提交搭配使用)
+      ack-mode: MANUAL_IMMEDIATE</code></pre><h3 id="_3使用"><a href="https://shrink.fun/note/kafka/#/?id=_3%e4%bd%bf%e7%94%a8" data-id="_3使用" class="anchor"><span>3.使用</span></a></h3><h4 id="_1创建话题"><a href="https://shrink.fun/note/kafka/#/?id=_1%e5%88%9b%e5%bb%ba%e8%af%9d%e9%a2%98" data-id="_1创建话题" class="anchor"><span>1.创建话题</span></a></h4><pre v-pre="" data-lang="java"><code class="lang-java">@Autowired
+private KafkaAdmin kafkaAdmin;
+/**
+ * 创建话题
+ */
+@Test
+public void testCreate(){
+    //创建话题
+    //参数1:话题 参数2:话题分区个数  参数3:话题主和从总数(一般和[话题分区个数]相同)
+    NewTopic newTopic=new NewTopic("my-topic",3,(short)3);
+    kafkaAdmin.createOrModifyTopics(newTopic);
+}</code></pre><h4 id="_2生产者"><a href="https://shrink.fun/note/kafka/#/?id=_2%e7%94%9f%e4%ba%a7%e8%80%85" data-id="_2生产者" class="anchor"><span>2.生产者</span></a></h4><h5 id="没有事务"><a href="https://shrink.fun/note/kafka/#/?id=%e6%b2%a1%e6%9c%89%e4%ba%8b%e5%8a%a1" data-id="没有事务" class="anchor"><span>没有事务</span></a></h5><pre v-pre="" data-lang="java"><code class="lang-java">@Autowired
+private KafkaTemplate kafkaTemplate;
+@Test
+void testSend()throws Exception{
+    User user=new User("Shrink",18);
+    //参数1:话题 参数2:消息(可以是对象)(基本数据类型要使用包装类)
+    //同步发送
+    kafkaTemplate.send("test-high",user)
+                .get();
+    //异步发送不添加回调
+    kafkaTemplate.send("test-high","i am string");
+    Dog dog=new Dog("Dog1",20);
+    //异步发送添加回调
+    kafkaTemplate.send("test-high",dog)
+        .addCallback(new ListenableFutureCallback(){
+            @Override
+            public void onFailure(Throwable ex){
+                log.error("发送失败",ex);
+            }
+            @Override
+            public void onSuccess(Object result){
+                log.debug("发送成功,返回结果为:{}.",result.toString());
+            }
+        });
+}</code></pre><h5 id="有事务"><a href="https://shrink.fun/note/kafka/#/?id=%e6%9c%89%e4%ba%8b%e5%8a%a1" data-id="有事务" class="anchor"><span>有事务</span></a></h5><pre v-pre="" data-lang="java"><code class="lang-java">@Controller
+public class TestController{
+    private static final Logger log=LoggerFactory.getLogger(TestController.class);
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
+    //生产者提交时事务机制
+    @Transactional
+    public void test(){
+        User user=new User("Shrink",10000);
+        //参数1:话题 参数2:消息(可以是对象)(基本数据类型要使用包装类)
+        //异步发送添加回调
+        kafkaTemplate.send("test-high",user)
+                     .addCallback(new ListenableFutureCallback(){
+                         @Override
+                         public void onFailure(Throwable ex){
+                             log.error("发送失败",ex);
+                         }
+                         @Override
+                         public void onSuccess(Object result){
+                             log.debug("发送成功,返回结果为:{}.",result.toString());
+                         }
+                     });
+        //抛异常导致事务出错
+        int i=10/0;
+        //异步发送不添加回调
+        kafkaTemplate.send("test-high","i am string1000");
+    }
+}</code></pre><h4 id="_3消费者"><a href="https://shrink.fun/note/kafka/#/?id=_3%e6%b6%88%e8%b4%b9%e8%80%85" data-id="_3消费者" class="anchor"><span>3.消费者</span></a></h4><pre v-pre="" data-lang="java"><code class="lang-java">//指定这个类里面负责监听消息话题的方法要监听的话题,可以监听多个话题.
+//KafkaListener和KafkaHandler的关系:每一个KafkaListener代表一个消费者,而KafkaHandler只是它的附属.
+//KafkaListener持有多个消息时,会依次处理而非并行处理.
+//KafkaListener对每一个消息,按消息数据类型把它分配给能处理的方法,如果没有能处理的方法就会报异常.
+@Component
+//以下两者是互斥的
+//topics="test-high"指定topics
+//topicPartitions=@TopicPartition(topic="test-high", partitions="0")指定topics以及其对应的partitions
+@KafkaListener(topics="test-high")
+public class KafkaConsumer{
+    private static final Logger log=LoggerFactory.getLogger(KafkaConsumer.class);
+    //监听的话题是KafkaListener指定的那些,且只会处理消息数据类型为User的.
+    @KafkaHandler
+    //KafkaHandler方法的Acknowledgment参数可有可无,且顺序无所谓.
+    //User:当前消息存储的数据(基本数据类型要使用包装类)
+    public void consumeUser(User user,Acknowledgment ack){
+        log.debug(user.toString());
+        boolean hasNoError=true;
+        //如果正确处理了消息,就ack.
+        if(hasNoError){
+            ack.acknowledge();
+            log.debug("正确处理且ack了");
+        }
+        //没有正确处理消息则nack,并且在指定的时间之后重新拉取消息.
+        else{
+            ack.nack(Duration.ofSeconds(3));
+            log.error("未正确处理且nack了");
+        }
+    }
+    //监听的话题是KafkaListener指定的那些,且只会处理消息数据类型为Dog的.
+    @KafkaHandler
+    //KafkaHandler方法的Acknowledgment参数可有可无,且顺序无所谓.
+    //Dog:当前消息存储的数据(基本数据类型要使用包装类)
+    public void consumeDog(Dog dog,Acknowledgment ack){
+        log.debug(dog.toString());
+        boolean hasNoError=true;
+        //如果正确处理了消息,就ack.
+        if(hasNoError){
+            ack.acknowledge();
+            log.debug("正确处理且ack了");
+        }
+        //没有正确处理消息则nack,并且在指定的时间之后重新拉取消息.
+        else{
+            ack.nack(Duration.ofSeconds(3));
+            log.error("未正确处理且nack了");
+        }
+    }
+    //监听的话题是KafkaListener指定的那些,且只会处理消息数据类型为String的.
+    @KafkaHandler
+    //KafkaHandler方法的Acknowledgment参数可有可无,且顺序无所谓.
+    //String:当前消息存储的数据(基本数据类型要使用包装类)
+    public void consumeString(String s,Acknowledgment ack){
+        log.debug(s);
+        boolean hasNoError=true;
+        //如果正确处理了消息,就ack.
+        if(hasNoError){
+            ack.acknowledge();
+            log.debug("正确处理且ack了");
+        }
+        //没有正确处理消息则nack,并且在指定的时间之后重新拉取消息.
+        else{
+            ack.nack(Duration.ofSeconds(3));
+            log.error("未正确处理且nack了");
+        }
+    }
+    //监听的话题是KafkaListener指定的那些
+    //KafkaHandler方法的Acknowledgment参数可有可无,且顺序无所谓.
+    //isDefault=true且参数类型为Object表示如果没有数据类型匹配,则选择这个.
+    @KafkaHandler(isDefault=true)
+    public void consumeOther(Object o,Acknowledgment ack){
+        log.debug(o.toString());
+        boolean hasNoError=true;
+        //如果正确处理了消息,就ack.
+        if(hasNoError){
+            ack.acknowledge();
+            log.debug("正确处理且ack了");
+        }
+        //没有正确处理消息则nack,并且在指定的时间之后重新拉取消息.
+        else{
+            ack.nack(Duration.ofSeconds(3));
+            log.error("未正确处理且nack了");
+        }
+    }
+}</code></pre><h2 id="通过eagle可视化kafka"><a href="https://shrink.fun/note/kafka/#/?id=%e9%80%9a%e8%bf%87eagle%e5%8f%af%e8%a7%86%e5%8c%96kafka" data-id="通过eagle可视化kafka" class="anchor"><span></span></a><a href="https://www.bilibili.com/video/BV1vr4y1677k?p=63" target="_blank" rel="noopener">通过eagle可视化Kafka</a></h2></article></section></main>
+  <script>
+    window.$docsify = {
+      name: '',
+      repo: '',
+      loadNavbar:true
+    }
+  </script>
+  <!-- Docsify v4 -->
+  <script src="./Kafka_files/docsify@4"></script>
+
+
+<div id="fatkun-drop-panel">
+    <div id="fatkun-drop-panel-close-btn"><div id="error"></div></div>
+        <div id="fatkun-drop-panel-inner">
+            <div class="fatkun-content">
+            <svg class="fatkun-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8946" width="48" height="48"><path d="M585.142857 572.562286l185.490286-185.417143a73.142857 73.142857 0 0 1 103.424 103.424L563.712 800.914286a72.923429 72.923429 0 0 1-103.424 0L149.942857 490.569143a73.142857 73.142857 0 0 1 103.424-103.424L438.857143 572.562286V73.142857a73.142857 73.142857 0 1 1 146.285714 0v499.419429zM73.142857 877.714286h877.714286a73.142857 73.142857 0 0 1 0 146.285714H73.142857a73.142857 73.142857 0 0 1 0-146.285714z" fill="#ffffff" p-id="8947"></path></svg>    
+            <div class="fatkun-title">拖拽到此处完成下载</div>
+            <!-- <div class="fatkun-desc">The image will be downloaded</div>  -->
+            </div>
+            <div id="fatkun-supported-by">AIX智能下载器</div>
+        </div>
+    </div><script src="chrome-extension://cdnlggbebabeoneeglhadpagegmflmbc/aiscripts/scriptBus.js"></script><span id="cnki_grabber" data-id="1716258893000" style="visibility: hidden;"></span><script></script><div class="progress" style="opacity: 0; width: 0%;"></div></body></html>
