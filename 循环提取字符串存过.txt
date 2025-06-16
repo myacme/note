@@ -1,0 +1,42 @@
+CREATE DEFINER=`dldp_dev`@`%` PROCEDURE `find_old_description`(IN id varchar(32), OUT output_str TEXT)
+BEGIN
+ DECLARE pos INT DEFAULT 1;
+    DECLARE content_len INT;
+    DECLARE temp_str TEXT DEFAULT '';
+    DECLARE input_str TEXT;
+    DECLARE found_content TEXT;
+    DECLARE delimiter_pos INT;
+    
+		SELECT notes into input_str FROM d_cadmapnotes WHERE projectid = id AND configid = 'TJ001' LIMIT 1 ;
+		
+    -- 初始化输出字符串
+    SET output_str = '';
+
+    -- 循环查找“利旧”内容
+    WHILE pos > 0 DO
+        -- 查找“利旧”关键字的位置
+        SET pos = LOCATE('利旧', input_str, pos);
+        
+        IF pos > 0 THEN
+            -- 截取从“利旧”开始的部分
+            SET temp_str = SUBSTRING(input_str, pos);
+
+            -- 假设每个“利旧”内容以分号结束，这里以；作为结束符
+            SET delimiter_pos = NULLIF(LOCATE('；', temp_str), 0);
+
+            IF delimiter_pos IS NOT NULL THEN
+                -- 提取单个“利旧”内容
+                SET found_content = SUBSTRING_INDEX(SUBSTRING(temp_str, LOCATE('利旧', temp_str)), '；', 1);
+								
+								IF found_content LIKE '利旧%' THEN
+										-- 将内容添加到输出字符串中
+										SET output_str = CONCAT(output_str, found_content, '；');
+								END IF;
+            
+                -- 移动位置指针
+                SET pos = pos + CHAR_LENGTH(found_content);
+            END IF;
+        END IF;
+    END WHILE;
+
+END
