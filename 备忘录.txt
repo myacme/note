@@ -13,4 +13,6 @@ mvn clean install -Dmaven.test.skip=true -s E:\companyProject\hyht\settings.xml
 S3TC-CWDQ-7TRU-LCGE
 w3590810k2.qicp.vip
 
+D:\WeChat Files\wxid_zd0w1wiz2inb21\BackupFiles\
+
 
