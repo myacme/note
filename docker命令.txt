@@ -1,0 +1,29 @@
+查看所有镜像：docker images
+列出当前正在运行的容器：docker ps
+列出所有容器（包括已停止的容器）：docker ps -a
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+启动mysql：docker run --name my-mysql -e MYSQL_ROOT_PASSWORD=mysql@1qaz -d -p 3306:3306 mysql:8.0
