@@ -1,8 +1,15 @@
 本机：
-	linux：ljx 333.  root root
-	mysql ：root Root@123  mysql@1qaz
-	redis：redis@123
+	linux(192.168.75.130)：ljx 333.  root 333.
+	jenkins：myacme ljx@1qaz
+	mysql：root Root@123  mysql@1qaz
+	pgsql：postgres postgres@1qax
+	redis：ljx@1qaz
 		启动：redis-server /usr/local/lib/redis-6.2.1/redis.conf
+宝塔：
+ 外网ipv4面板地址: https://218.88.71.160:42517/0249f73a
+ 内网面板地址:     https://192.168.75.131:42517/0249f73a
+ username: vhugcmta
+ password: df22a520
 
 清空文件数据：echo "" > （catalina.out）
 拷贝到另一个服务器：scp -r （mecp.dubbo.war root@172.16.9.171:/home/apache-tomcat-dubbo/code/）
@@ -49,22 +56,32 @@ ps aux|grep xxx.jar
 关闭mysql服务：service mysqld stop
 
 
-
 迁移数据库：1、新建文件夹 2、授权：chown -vR mysql:mysql /xxx/mysql5.7/data/  chmod 700 /xxx/mysql5.7/data/ 3、修改配置文件：vim etc/my.cnf -->datadir
 
 查询linux版本：cat /etc/redhat-release  |  uname -a
 
-
 查看jvm内存使用：jhsdb jmap --heap --pid 
-
-查看nginx运行状态：ps -ef | grep nginx
-
-修改root密码失败：mount -o remount,rw /
 
 查找安装目录：which xxx
 
-
 docker查询容器并删除：docker rm $(docker ps -aq)
+
+
+设置root用户密码：sudo passwd root (333.)
+
+修改root密码失败：mount -o remount,rw /
+
+连接root用户：
+		一、安装openssh
+		执行命令：sudo apt install openssh-server
+		二、修改配置文件
+		修改配置文件/etc/ssh/sshd_config
+		命令：sudo vim /etc/ssh/sshd_config
+		找到 #PermitRootLogin prohibit-password
+		改为 PermitRootLogin yes
+		三、重启ssh服务
+		命令：sudo systemctl restart ssh
+
 
 
 

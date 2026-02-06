@@ -4,15 +4,20 @@ EasyCodeMybatisCodeHelperPro的token：5b842e93b33e18cecc549b9df82686cb
 
 apifox令牌：APS-ttYj0C4VjmLfq9ZI3YdgpuD45j02evAX
 
-liujx@ihyht.com  ljx246866..6      liujx  13540429916@sd`
-
-wifi 账号  SCWD scwd20220711   ChinaNet-93h5  密码  nyyc3qwp
 
 mvn clean install -Dmaven.test.skip=true -s E:\companyProject\hyht\settings.xml
+
+dp：sk-eefc8e077bca40dbadcca058ec3d5cb6
 
 S3TC-CWDQ-7TRU-LCGE
 w3590810k2.qicp.vip
 
-D:\WeChat Files\wxid_zd0w1wiz2inb21\BackupFiles\
+鼠标9.5  11.27
+
+X：@myacme9766
 
 
+vpn：
+https://msub.xn--m7r52rosihxm.com/api/v1/client/subscribe?token=f627872f6d95bfa07efb44e555611185
+https://x1.344211.cc/api/v1/client/subscribe?token=d1a8c2464500cd618453ca07a154128a
+https://vyy.14kbuy.com/s/4cc454565a7b0efe59529937427bd250
