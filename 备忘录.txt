@@ -16,7 +16,4 @@ w3590810k2.qicp.vip
 X：@myacme9766
 
 
-vpn：
-https://msub.xn--m7r52rosihxm.com/api/v1/client/subscribe?token=f627872f6d95bfa07efb44e555611185
-https://x1.344211.cc/api/v1/client/subscribe?token=d1a8c2464500cd618453ca07a154128a
-https://vyy.14kbuy.com/s/4cc454565a7b0efe59529937427bd250
+
