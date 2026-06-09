@@ -7,7 +7,6 @@ apifox令牌：APS-ttYj0C4VjmLfq9ZI3YdgpuD45j02evAX
 
 mvn clean install -Dmaven.test.skip=true -s E:\companyProject\hyht\settings.xml
 
-dp：sk-eefc8e077bca40dbadcca058ec3d5cb6
 
 S3TC-CWDQ-7TRU-LCGE
 w3590810k2.qicp.vip
